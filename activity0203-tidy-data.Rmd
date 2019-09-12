@@ -58,7 +58,11 @@ lotr_tidy %>%
 
 ### Exercise 4
 
-...
+``` {r four}
+lotr_tidy %>%
+  group_by(Film) %>%
+  summarise(total = sum(Words))
+```
 
 ### Exercise 5
 
