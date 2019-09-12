@@ -1,7 +1,7 @@
 ---
-title: "Activity 2.3 - Exploratory Data Analysis: Tidy Data"
-author: "INSERT TEAM NAME HERE"
-date: "INSERT TODAY'S DATE HERE"
+title: Activity 2-3 - Tidy Data
+author: Purple
+date: 09/10/2019
 output: 
   html_document: 
     keep_md: yes
