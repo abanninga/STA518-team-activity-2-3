@@ -29,13 +29,24 @@ lotr_untidy
 
 ### Exercise 1
 
-(Type your answer to Exercise 1 here. Add code chunks as needed. Don't forget 
-to label your code chunk. Do not use spaces in code chunk labels.)
+This data is untidy because there were multiple observations in one row.
 
 ### Exercise 2
+```{r}
+lotr_tidy <- lotr_untidy %>% 
+  gather(key = 'Gender', value = 'Words', Female, Male)
+lotr_tidy
 
-(Type your answer to Exercise 2 here. Add code chunks as needed. Don't forget 
-to label your code chunk. Do not use spaces in code chunk labels.)
+write_csv(lotr_tidy, path = "data/lotr_tidy.csv")
+```
+
+```{r}
+f <- read_csv("data/Female.csv")
+m <- read_csv("data/Male.csv")
+lotr_tidy <- bind_rows(f, m)
+
+write_csv(lotr_tidy, path = "data/lotr_tidy.csv")
+```
 
 ### Exercise 3
 
