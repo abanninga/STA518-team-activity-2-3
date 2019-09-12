@@ -50,8 +50,11 @@ write_csv(lotr_tidy, path = "data/lotr_tidy.csv")
 
 ### Exercise 3
 
-(Type your answer to Exercise 3 here. Add code chunks as needed. Don't forget 
-to label your code chunk. Do not use spaces in code chunk labels.)
+``` {r three}
+lotr_tidy %>%
+  group_by(Race) %>%
+  summarise(total = sum(Words))
+```
 
 ### Exercise 4
 
