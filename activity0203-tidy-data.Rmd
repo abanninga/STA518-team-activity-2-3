@@ -52,17 +52,34 @@ write_csv(lotr_tidy, path = "data/lotr_tidy.csv")
 
 ``` {r three}
 lotr_tidy %>%
-  group_by(Race) %>%
-  summarise(total = sum(Words))
+  summarise(totalElf = sum(Elf), totalHobbit = (sum(Hobbit)), totalMan = sum(Man))
 ```
+
+
+``` {r untidy}
+lotr_untidy %>%
+  group_by(Race) %>%
+  summarise(totalf = sum(Female), totalm = sum(Male)) %>%
+  mutate(total_words = totalm + totalf)
+```
+
+The tidy data is easiest to work with because the tidy data code is shorter and you do not have to use a mutate statement.
 
 ### Exercise 4
 
 ``` {r four}
+lotr_untidy %>%
+  group_by(Film) %>%
+  summarise(totalf = sum(Female), totalm = sum(Male)) %>%
+  mutate(total_words = totalm + totalf)
+```
+``` {r fourb}
 lotr_tidy %>%
   group_by(Film) %>%
-  summarise(total = sum(Words))
+  summarise(total = sum(Elf+Hobbit+Man))
 ```
+
+The tidy data is easiest because all of the data is in one place and each row is one observation
 
 ### Exercise 5
 
