@@ -19,6 +19,7 @@ library(tidyverse)
 fship <- read_csv("data/The_Fellowship_Of_The_Ring.csv")
 ttow <- read_csv("data/The_Two_Towers.csv")
 rking <- read_csv("data/The_Return_Of_The_King.csv")
+fship
 ```
 
 ```{r collect-data}
@@ -52,43 +53,51 @@ write_csv(lotr_tidy, path = "data/lotr_tidy.csv")
 
 ``` {r three}
 lotr_tidy %>%
-  summarise(totalElf = sum(Elf), totalHobbit = (sum(Hobbit)), totalMan = sum(Man))
-```
-
-
-``` {r untidy}
-lotr_untidy %>%
   group_by(Race) %>%
-  summarise(totalf = sum(Female), totalm = sum(Male)) %>%
-  mutate(total_words = totalm + totalf)
+  summarise(total = sum(Words))
 ```
-
-The tidy data is easiest to work with because the tidy data code is shorter and you do not have to use a mutate statement.
 
 ### Exercise 4
 
 ``` {r four}
-lotr_untidy %>%
-  group_by(Film) %>%
-  summarise(totalf = sum(Female), totalm = sum(Male)) %>%
-  mutate(total_words = totalm + totalf)
-```
-``` {r fourb}
 lotr_tidy %>%
   group_by(Film) %>%
-  summarise(total = sum(Elf+Hobbit+Man))
+  summarise(total = sum(Words))
 ```
-
-The tidy data is easiest because all of the data is in one place and each row is one observation
 
 ### Exercise 5
 
-...
+```{r learning-the-spread-function}
+lotr_tidy%>%
+  group_by(Film,Gender)%>%
+  summarise(total=sum(Words))
+lotr_tidy%>%
+  group_by(Film,Gender)%>%
+  summarise(total=sum(Words)) %>%
+  spread(Gender,total)
+```
+The spread data is easier to view, because it reduces the amount of rows the reader has to peruse without creating more columns by condensing the total words spoken with the Gender for each observation (in this case, each film of lotr). 
+
 
 ### Exercise 6
 
-...
+```{r Combined-Gender-Race-Words-Spoken}
+lotr_tidy%>%
+  unite("Race_Gender", Race:Gender)%>%
+  group_by(Film,Race_Gender)%>%
+  summarise(total=sum(Words)) %>%
+  spread(Race_Gender,total)
+```
 
 ### Exercise 7
 
-...
+```{r creating-three-ori-tables}
+lotr_tidy%>%
+  group_by(Film,Race,Gender)%>%
+  summarise(total=sum(Words)) %>%
+  spread(Gender,total)%>%
+  ungroup()%>%
+  group_split(Film)
+```
+
+
